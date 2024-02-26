@@ -1,0 +1,105 @@
+import User from "../models/user.model.js";
+import dotenv from 'dotenv';
+import bcryptjs from 'bcryptjs';
+import { errorHandler } from "../utils/error.js";
+import jwt from 'jsonwebtoken';
+
+
+dotenv.config({ path: "./../../config.env" });
+
+export const Signup = async (req, res ,next) =>{
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if(!username || !email || !password || username === '' || password === '' || email === ''){
+        next(errorHandler(400,'All fields are required!'));
+    }
+
+    const hashedPassword = bcryptjs.hashSync(password,10);
+
+    const newUser = new User ({
+        username,
+        email,
+        password : hashedPassword,
+    });
+
+
+    try {
+        await newUser.save();
+        res.json("Signup Successful !!");
+    } catch (error) {
+        next(error);
+    }
+    
+};
+
+
+export const signin = async (req,res,next) =>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if(!email  || !password || email === '' || password === '' ){
+        next(errorHandler(400,'All fields are required!'));
+    }
+
+    try {
+        const validateUser = await User.findOne({email});
+        if(!validateUser){
+            return next(errorHandler(400,'User not found'));
+        }
+
+        
+        const validPassword = bcryptjs.compareSync(password , validateUser.password);
+        // console.log(validPassword);
+        if(!validPassword){
+            return next(errorHandler(400,'Invalid Password'));
+        }
+
+        const token = jwt.sign(
+            { id : validateUser._id , isAdmin : validateUser.isAdmin } , process.env.JWT_SECRET 
+        );
+
+        const { password : pass, ...rest} = validateUser._doc;
+        res.status(200).cookie('access_token', token ,{
+            httpOnly : true
+        }).json(rest);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const google = async(req,res,next) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const googlePhotoUrl = req.body.googlePhotoUrl;
+
+    try {
+        const user = await User.findOne({email});
+        if(user){
+            const token = jwt.sign({ id: user._id , isAdmin : user.isAdmin } , process.env.JWT_SECRET);
+            const {password , ...rest} = user._doc;
+            res.status(200).cookie('access_token', token , {
+                httpOnly : true,     
+            }).json(rest);
+        }
+        else{
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashedPassword = bcryptjs.hashSync(generatedPassword,10);
+            const newUser = new User ({
+                username : name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
+                email : email,
+                password : hashedPassword,
+                profilePicture : googlePhotoUrl,
+            });
+            await newUser.save();
+            const token = jwt.sign({ id : newUser._id , isAdmin : newUser.isAdmin } , process.env.JWT_SECRET);
+            const { password , ...rest} = newUser._doc;
+            res.status(200).cookie('access_token',token , {
+                httpOnly : true,
+            }).json(rest);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
