@@ -59,6 +59,10 @@ const DashUsers = () => {
       if(res.ok){
         setusers((prev) => prev.filter((user) => user.id !== userIdToDelete) );
         setshowModal(false);
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        navigate('/');
       }
       else{
         console.log(data.message);

@@ -34,7 +34,7 @@ const Signup = () => {
           redirect : "follow",
 
         });
-        const data = await res.json();
+        const data = await res.text();
         if(data.success == false){
           return seterrormessage(data.message);
         }

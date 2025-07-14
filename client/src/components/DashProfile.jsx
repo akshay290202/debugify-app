@@ -15,10 +15,12 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DashProfile = () => {
   const dispatch = useDispatch();
   const  {currentUser, error ,loading} = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [updateUserSuccess, setupdateUserSuccess] = useState(null);
   const [updateUserError, setupdateUserError] = useState(null);
   const [formData, setformData] = useState({});
@@ -75,11 +77,16 @@ const DashProfile = () => {
           redirect: "follow",
         }
       );
-      const data = await res.json();
+      const data = await res.text();
       if (!res.ok) {
         dispatch(deleteUserFailure(data.message));
       } else {
         dispatch(deleteUserSuccess(data));
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        navigate('/');
+        console.log("User deleted successfully");
       }
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
@@ -119,7 +126,7 @@ const DashProfile = () => {
                 >
                   <Zoom>
                     <img
-                      src={currentUser.profilePicture}
+                      src={currentUser.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
                       alt="Profile"
                       className="w-full h-full object-cover rounded-full border-4 border-gradient-to-r from-primary-500 to-secondary-500 shadow-xl group-hover:scale-105 transition-transform duration-300"
                     />
@@ -138,7 +145,7 @@ const DashProfile = () => {
                 <div className="grid grid-cols-2 gap-4 mt-6">
                   <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-4">
                     <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                      {currentUser.isAdmin ? 'Admin' : 'Member'}
+                      {currentUser.isAdmin ? 'Admin' : 'User'}
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">Role</div>
                   </div>
