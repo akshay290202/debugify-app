@@ -32,7 +32,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`/api/comment/editcomment/${comment._id}`,{
+      const res = await fetch(`/api/comment/editcomment/${comment.id}`,{
         method : 'PUT',
         headers : {
           'Content-Type' : 'application/json'
@@ -51,6 +51,10 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
       console.log(error.message);
     }
   };
+
+  const checkIfUserHasLiked = (likes,userId) => {
+    return likes.some(like => like.user.id === userId);
+  }
 
   return (
     <div className="flex p-4 border-b text-sm">
@@ -101,11 +105,11 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
               <button
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
-                  comment.likes.includes(currentUser._id) &&
+                  checkIfUserHasLiked(comment.likes,currentUser.id)&&
                   "!text-blue-500"
                 }`}
                 type="button"
-                onClick={() => onLike(comment._id)}
+                onClick={() => onLike(comment.id)}
               >
                 <FaThumbsUp className="text-sm" />
               </button>
@@ -116,7 +120,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
                     (comment.numberOfLikes === 1 ? "like" : "likes")}
               </p>
               {currentUser &&
-                (currentUser._id === comment.userId || currentUser.isAdmin) && (
+                (currentUser.id === comment.userId || currentUser.isAdmin) && (
                   <>
                     <button
                     type="button"
@@ -127,7 +131,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
                   </button>
                   <button
                     type="button"
-                    onClick={() => onDelete(comment._id)}
+                    onClick={() => onDelete(comment.id)}
                     className="text-gray-400 hover:text-red-500"
                   >
                     Delete

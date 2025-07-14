@@ -26,7 +26,7 @@ const CommentSection = ({ postId }) => {
         body: JSON.stringify({
           content: comment,
           postId: postId,
-          userId: currentUser._id,
+          userId: currentUser.id,
         }),
         redirect: "follow",
       });
@@ -72,7 +72,7 @@ const CommentSection = ({ postId }) => {
         const data = await res.json();
         // console.log(likes);
         setcomments(comments.map((comment) => 
-          comment._id === commentId ? {
+          comment.id === commentId ? {
             ...comment,
             likes : data.likes,
             numberOfLikes : data.likes.length,
@@ -87,7 +87,7 @@ const CommentSection = ({ postId }) => {
   const handleEdit = async (comment,editedContent) => {
     setcomments(
       comments.map((c) =>
-      c._id === comment._id ? {...c , content : editedContent} : c
+      c.id === comment.id ? {...c , content : editedContent} : c
     ))
   };
 
@@ -106,7 +106,7 @@ const CommentSection = ({ postId }) => {
         
         const data = await res.json();
         setcomments(
-          comments.filter((comment) => comment._id !== commentToDelete)
+          comments.filter((comment) => comment.id !== commentToDelete)
         )
       }
     } catch (error) {
@@ -182,7 +182,7 @@ const CommentSection = ({ postId }) => {
           </div>
           {
             comments.map(comment => (
-              <Comment key={comment._id} comment={comment} onLike = {handleLike} onEdit={handleEdit} onDelete={(commentId)=>{
+              <Comment key={comment.id} comment={comment} onLike = {handleLike} onEdit={handleEdit} onDelete={(commentId)=>{
                 setshowModal(true);
                 setcommentToDelete(commentId);
               }} />

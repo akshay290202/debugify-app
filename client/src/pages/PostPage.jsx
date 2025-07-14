@@ -109,14 +109,14 @@ const PostPage = () => {
       
       
 
-      <CommentSection postId={post._id} />
+      <CommentSection postId={post.id} />
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent Questions</h1>
         <div className="flex flex-col mt-5 gap-2">
         {
           recentPosts && 
           recentPosts.map((onepost) => (
-            <Link to={`/post/${onepost.slug}`} className="flex text-cyan-500 hover:text-cyan-600" key={onepost._id}>{onepost.title}</Link>
+            <Link to={`/post/${onepost.slug}`} className="flex text-cyan-500 hover:text-cyan-600" key={onepost.id}>{onepost.title}</Link>
           ))
         }
         </div>

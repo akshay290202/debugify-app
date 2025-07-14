@@ -38,7 +38,7 @@ const DashProfile = () => {
     try {
       dispatch(updateStart());
       const res = await fetch(
-        `/api/user/update/${currentUser._id}`,
+        `/api/user/update/${currentUser.id}`,
         {
           method: "PUT",
           headers: {
@@ -67,7 +67,7 @@ const DashProfile = () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `/api/user/delete/${currentUser._id}`,
+        `/api/user/delete/${currentUser.id}`,
         {
           method: "DELETE",
           redirect: "follow",
@@ -137,6 +137,7 @@ const DashProfile = () => {
           Delete Account
         </Button>
       </div>
+
       {updateUserSuccess && (
         <Alert color="success" className="mt-5 text-center">
           {updateUserSuccess}
@@ -149,11 +150,6 @@ const DashProfile = () => {
         </Alert>
       )}
 
-      {error && (
-        <Alert color="failure" className="mt-5 text-center">
-          {error}
-        </Alert>
-      )}
       <Modal
         show={showModel}
         onClose={() => setshowModel(false)}

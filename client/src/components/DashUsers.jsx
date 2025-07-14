@@ -32,7 +32,7 @@ const DashUsers = () => {
       }
     };
     fetchUsers();
-  }, [currentUser._id]);
+  }, [currentUser.id]);
 
   const handleShowMore = async () => {
     const startIndex = users.length;
@@ -55,9 +55,9 @@ const DashUsers = () => {
       const res = await fetch(`/api/user/delete/${userIdToDelete}`,{
         method : 'DELETE',
       });
-      const data = await res.json();
+      const data = await res.text();
       if(res.ok){
-        setusers((prev) => prev.filter((user) => user._id !== userIdToDelete) );
+        setusers((prev) => prev.filter((user) => user.id !== userIdToDelete) );
         setshowModal(false);
       }
       else{
@@ -89,7 +89,7 @@ const DashUsers = () => {
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
-              <Table.Body className="divide-y" key={user._id}>
+              <Table.Body className="divide-y" key={user.id}>
                 <Table.Row className="bg-white">
                   <Table.Cell>
                     {new Date(user.createdAt).toLocaleDateString()}
@@ -105,7 +105,7 @@ const DashUsers = () => {
                   <Table.Cell>
                     <span onClick={() => {
                       setshowModal(true);
-                      setuserIdToDelete(user._id);
+                      setuserIdToDelete(user.id);
                     }} className="text-red-500 font-medium hover:underline cursor-pointer">Delete</span>
                   </Table.Cell>
                 </Table.Row>

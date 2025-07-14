@@ -144,7 +144,7 @@ const DashboardComp = () => {
                 </Table.Head>
                 {
                     users && users.map((user) => (
-                        <Table.Body key={user._id} className="divide-y">
+                        <Table.Body key={user.id} className="divide-y">
                             <Table.Row className="bg-white">
                                 <Table.Cell>
                                     <img src={user.profilePicture} alt="user" className="w-10 h-10 rounded bg-gray-500"/>
@@ -176,7 +176,7 @@ const DashboardComp = () => {
                 </Table.Head>
                 {
                     comments && comments.map((comment) => (
-                        <Table.Body key={comment._id} className="divide-y">
+                        <Table.Body key={comment.id} className="divide-y">
                             <Table.Row className="bg-white">
                                 <Table.Cell className="w-96">
                                     <p className="line-clamp-2">{comment.content}</p>
@@ -209,7 +209,7 @@ const DashboardComp = () => {
                 </Table.Head>
                 {
                     posts && posts.map((post) => (
-                        <Table.Body key={post._id} className="divide-y">
+                        <Table.Body key={post.id} className="divide-y">
                             <Table.Row className="bg-white">
                                 <Table.Cell className="w-96">
                                     {post.title}

@@ -16,7 +16,8 @@ const DashPosts = () => {
     const fetchPosts = async () => {
       try {
         setloading(true);
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        console.log("****",currentUser.id);
+        const res = await fetch(`/api/post/getposts?userId=${currentUser.id}`);
         const data = await res.json();
         if (res.ok) {
           setuserPosts(data.posts);
@@ -31,12 +32,12 @@ const DashPosts = () => {
       }
     };
     fetchPosts();
-  }, [currentUser._id]);
+  }, [currentUser.id]);
 
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+      const res = await fetch(`/api/post/getposts?userId=${currentUser.id}&startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setuserPosts((prev) => [...prev , ...data.posts]);
@@ -52,16 +53,16 @@ const DashPosts = () => {
   const handleDeletePost = async () => {
     setshowModal(false);
     try {
-      const res = await fetch(`/api/post/deletepost/${PostIdToDelete}/${currentUser._id}` , {
+      const res = await fetch(`/api/post/deletepost/${PostIdToDelete}/${currentUser.id}` , {
         method : 'DELETE',
       });
-      const data = await res.json();
+      const data = await res.text();
       if(!res.ok){
         console.log(data.message);
       }
       else{
         setuserPosts((prev) => 
-          prev.filter((post) => post._id !== PostIdToDelete)
+          prev.filter((post) => post.id !== PostIdToDelete)
         )
       }
 
@@ -92,7 +93,7 @@ const DashPosts = () => {
               </Table.HeadCell>
             </Table.Head>
             {userPosts.map((post) => (
-              <Table.Body className="divide-y" key={post._id}>
+              <Table.Body className="divide-y" key={post.id}>
                 <Table.Row className="bg-white">
                   <Table.Cell>
                     {new Date(post.updatedAt).toLocaleDateString()}
@@ -104,11 +105,11 @@ const DashPosts = () => {
                   <Table.Cell>
                     <span onClick={() => {
                       setshowModal(true);
-                      setPostIdToDelete(post._id);
+                      setPostIdToDelete(post.id);
                     }} className="text-red-500 font-medium hover:underline cursor-pointer">Delete</span>
                   </Table.Cell>
                   <Table.Cell>
-                    <Link className='text-teal-500 hover:underline' to={`/update-post/${post._id}`}>
+                    <Link className='text-teal-500 hover:underline' to={`/update-post/${post.id}`}>
                       <span>Edit</span>
                     </Link>
                   </Table.Cell>

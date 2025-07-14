@@ -59,7 +59,7 @@ const Questions = () => {
         {
           posts && 
           posts.map((onepost) => (
-            <Link to={`/post/${onepost.slug}`} className="flex text-cyan-500 hover:text-cyan-600" key={onepost._id}>{onepost.title}</Link>
+            <Link to={`/post/${onepost.slug}`} className="flex text-cyan-500 hover:text-cyan-600" key={onepost.id}>{onepost.title}</Link>
           ))
         }
         </div>

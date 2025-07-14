@@ -26,17 +26,24 @@ const Header = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("/api/user/signout/", {
+      const res = await fetch('/api/user/signout/', {
         method: "POST",
       });
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
+      
+      let data = await res.text();
+      
+      if (res.ok) { 
+        console.log("Sign out successful:", data);
         dispatch(signOutSuccess());
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        navigate('/');
+      } else {
+        console.log("Sign out failed:", data);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log("Sign out error:", error.message);
     }
   };
 

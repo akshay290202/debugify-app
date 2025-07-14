@@ -2,7 +2,7 @@ import React from "react";
 import { Sidebar } from "flowbite-react";
 import { HiAnnotation, HiChartPie, HiDocumentText, HiOutlineArrowSmRight, HiOutlineUserGroup, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch , useSelector } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice.js";
 
@@ -10,6 +10,7 @@ import { signOutSuccess } from "../redux/user/userSlice.js";
 const DashSidebar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {currentUser} = useSelector(state => state.user);
   const [tab, setTab] = useState("");
   useEffect(() => {
@@ -22,20 +23,24 @@ const DashSidebar = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch(
-        '/api/user/signout/',
-        {
-          method: "POST",
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
+      const res = await fetch('/api/user/signout/', {
+        method: "POST",
+      });
+      
+      let data = await res.text();
+      
+      if (res.ok) { 
+        console.log("Sign out successful:", data);
         dispatch(signOutSuccess());
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        navigate('/');
+      } else {
+        console.log("Sign out failed:", data);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log("Sign out error:", error.message);
     }
   };
 

@@ -64,7 +64,7 @@ const Home = () => {
               <Link
                 to={`/post/${onepost.slug}`}
                 className="flex text-cyan-500 hover:text-cyan-600"
-                key={onepost._id}
+                key={onepost.id}
               >
                 {onepost.title}
               </Link>

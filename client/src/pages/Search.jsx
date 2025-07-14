@@ -163,7 +163,7 @@ const Search = () => {
           <div className="flex flex-col mt-10 gap-6">
           {
             !loading && posts && posts.map((post) => (
-              <Link to={`/post/${post.slug}`} className=" text-cyan-500 hover:text-cyan-600" key={post._id}>{post.title}</Link>
+              <Link to={`/post/${post.slug}`} className=" text-cyan-500 hover:text-cyan-600" key={post.id}>{post.title}</Link>
             ))
           }
           
