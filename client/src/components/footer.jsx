@@ -1,81 +1,122 @@
-import { Footer } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "/coding-html-svgrepo-com.svg";
-import { FaHome  } from 'react-icons/fa';
+import { FaHome, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { IoBugSharp } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
-import { FaGithub ,FaLinkedin  } from "react-icons/fa";
 import { IoIosInformationCircle } from "react-icons/io";
 
-const footer = () => {
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <Footer container className="border border-t-8 border-orange-400">
-      <div className="w-full max-w-7xl mx-auto">
-        <div className="grid w-full justify-between sm:flex md:grid-cols-1">
-          <div className="mt-5">
-            <Link
-              style={{ display: "flex" }}
-              className="font-bold dark:text-white sm:text-4xl text:lg"
-              to="/"
-            >
-              <img src={logo} className="mr-3 h-6 sm:h-9" alt="Debugify Logo" />
-              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <div className="max-w-6xl mx-auto px-6 py-10">
+        
+        {/* Single Row Layout */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          {/* Brand Section */}
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-3 group">
+              <img 
+                src={logo} 
+                className="h-8 w-8 transition-transform duration-200 group-hover:scale-110" 
+                alt="Debugify Logo" 
+              />
+              <span className="text-2xl font-bold text-gradient">
                 Debugify
               </span>
             </Link>
-            <p className="mt-5">Debugify the onestop solution to all your bugs.</p>
+            <span className="hidden md:block text-gray-300 dark:text-gray-600">|</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Debug smarter, code better
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 mt-5 sm:grid-cols-2 sm-gap-6 justify-start">
-            <div>
-              <Footer.Title title="About" />
-              <Footer.LinkGroup col>
-              <div className="flex gap-1">
-                <div className="my-auto">{<FaHome/>}</div>
-                <Footer.Link href="/">Home</Footer.Link>
-              </div>
-              <div className="flex gap-1">
-                <div className="my-auto">{<IoBugSharp/>}</div>
-                <Footer.Link href="/questions">Questions</Footer.Link>
-              </div>
-              <div className="flex gap-1">
-                <div className="my-auto">{<IoIosInformationCircle/>}</div>
-                <Footer.Link href="/about">About Us</Footer.Link>
-              </div>
-                
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Social Media" />
-              <Footer.LinkGroup col>
-              <div className="flex gap-1">
-                <div className="my-auto">{<RiInstagramFill/>}</div>
-                <Footer.Link href="https://www.instagram.com/_._a.k__._/" target="_blank" rel="noopener noreferrer">Instagram</Footer.Link>
-              </div>
+          {/* Navigation Links */}
+          <nav className="flex items-center space-x-6">
+            <Link
+              to="/"
+              className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
+            >
+              <FaHome className="w-4 h-4" />
+              <span>Home</span>
+            </Link>
+            <Link
+              to="/questions"
+              className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
+            >
+              <IoBugSharp className="w-4 h-4" />
+              <span>Questions</span>
+            </Link>
+            <Link
+              to="/about"
+              className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
+            >
+              <IoIosInformationCircle className="w-4 h-4" />
+              <span>About</span>
+            </Link>
+          </nav>
 
-              <div className="flex gap-1">
-                <div className="my-auto">{<FaGithub/>}</div>
-                <Footer.Link href="https://github.com/akshay290202" target="_blank" rel="noopener noreferrer">Github</Footer.Link>
-              </div>
-                
-              <div className="flex gap-1">
-                <div className="my-auto">{<FaLinkedin/>}</div>
-                <Footer.Link href="https://www.linkedin.com/in/akshay2902/" target="_blank" rel="noopener noreferrer">LinkedIn</Footer.Link>
-              </div>
-                
-              </Footer.LinkGroup>
-            </div>
+          {/* Social Links */}
+          <div className="flex items-center space-x-4">
+            <a
+              href="https://github.com/akshay290202"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <FaGithub className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/akshay2902/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.instagram.com/_._a.k__._/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors"
+              aria-label="Instagram"
+            >
+              <RiInstagramFill className="w-5 h-5" />
+            </a>
           </div>
         </div>
-        <Footer.Divider/>
-        <div className="w-full text-center ">
-            <Footer.Copyright href="#" by = "by Akshay. All rights reserved!" year={new Date().getFullYear()}/>
+
+        {/* Bottom Section */}
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 dark:text-gray-400">
+          <p>
+            © {currentYear} <span className="text-primary-600 dark:text-primary-400 font-medium">Debugify</span> by Akshay
+          </p>
+          <div className="flex items-center space-x-4">
+            <Link 
+              to="/about" 
+              className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >
+              Privacy
+            </Link>
+            <Link 
+              to="/about" 
+              className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >
+              Terms
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">•</span>
+            <span className="text-xs">Made with ❤️ for developers</span>
+          </div>
         </div>
 
       </div>
-    </Footer>
+    </footer>
   );
 };
 
-export default footer;
+export default Footer;
