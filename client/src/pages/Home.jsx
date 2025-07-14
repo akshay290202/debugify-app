@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiArrowRight, HiCode, HiUsers, HiLightBulb, HiStar, HiSparkles, HiShieldCheck } from "react-icons/hi";
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [recentPosts, setRecentPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchRecentPosts = async () => {
       try {

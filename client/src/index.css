@@ -74,10 +74,62 @@
 .ql-editor {
   @apply text-base leading-relaxed text-gray-700 dark:text-gray-300;
   font-size: 1.05rem;
+  min-height: 200px;
+  padding: 1.5rem;
 }
 
 .ql-editor.ql-blank::before {
   @apply text-gray-400 dark:text-gray-500;
+  font-style: normal;
+}
+
+/* Modern ReactQuill Styling */
+.ql-toolbar {
+  @apply border-0 border-b border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50;
+  border-radius: 16px 16px 0 0;
+  padding: 12px 16px;
+}
+
+.ql-container {
+  @apply border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg;
+  border-radius: 0 0 16px 16px;
+  font-family: inherit;
+}
+
+.ql-toolbar .ql-stroke {
+  @apply stroke-gray-600 dark:stroke-gray-400;
+}
+
+.ql-toolbar .ql-fill {
+  @apply fill-gray-600 dark:fill-gray-400;
+}
+
+.ql-toolbar .ql-picker-label {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.ql-toolbar button:hover .ql-stroke {
+  @apply stroke-primary-600 dark:stroke-primary-400;
+}
+
+.ql-toolbar button:hover .ql-fill {
+  @apply fill-primary-600 dark:fill-primary-400;
+}
+
+.ql-toolbar button.ql-active .ql-stroke {
+  @apply stroke-primary-600 dark:stroke-primary-400;
+}
+
+.ql-toolbar button.ql-active .ql-fill {
+  @apply fill-primary-600 dark:fill-primary-400;
+}
+
+.ql-snow .ql-picker-options {
+  @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg;
+}
+
+.ql-snow .ql-picker-item:hover {
+  @apply bg-primary-50 dark:bg-primary-900/30;
 }
 
 /* Post Content Styles */
