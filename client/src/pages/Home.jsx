@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { HiArrowRight, HiCode, HiUsers, HiLightBulb, HiStar } from "react-icons/hi";
+import { HiArrowRight, HiCode, HiUsers, HiLightBulb, HiStar, HiSparkles, HiShieldCheck } from "react-icons/hi";
 
 const Home = () => {
   const [recentPosts, setRecentPosts] = useState(null);
@@ -202,28 +202,56 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-secondary-600">
-        <div className="max-w-4xl mx-auto text-center px-6 sm:px-8 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Join Our Community?
-          </h2>
-          <p className="text-xl text-primary-100 mb-8 leading-relaxed">
-            Start your coding journey with us today. Learn, grow, and code together!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              to="/sign-up" 
-              className="bg-white text-primary-600 hover:bg-gray-50 font-medium px-8 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105"
-            >
-              Get Started Free
-            </Link>
-            <Link 
-              to="/about" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-medium px-8 py-3 rounded-lg transition-all duration-200"
-            >
-              Learn More
-            </Link>
+      {/* Final CTA Section */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"></div>
+        <div className="relative max-w-4xl mx-auto text-center px-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+              Ready to Transform Your
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent"> Coding Journey?</span>
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 leading-relaxed">
+              Join thousands of developers who've already revolutionized their debugging process. 
+              Your next breakthrough is just a question away.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button
+                onClick={() => navigate('/sign-up')}
+                className="group relative px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  <HiSparkles className="w-6 h-6 mr-2 group-hover:animate-spin" />
+                  Join Free Today
+                  <HiArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+              
+              <button
+                onClick={() => navigate('/questions')}
+                className="px-10 py-5 bg-white/10 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-2xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
+              >
+                Browse Questions
+              </button>
+            </div>
+
+            {/* Social Proof */}
+            <div className="mt-12 flex items-center justify-center space-x-8">
+              <div className="flex items-center text-gray-300">
+                <HiUsers className="w-5 h-5 mr-2" />
+                <span className="text-sm">10,000+ Active Users</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <HiStar className="w-5 h-5 mr-2 text-yellow-400" />
+                <span className="text-sm">4.9/5 Rating</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <HiShieldCheck className="w-5 h-5 mr-2 text-green-400" />
+                <span className="text-sm">100% Secure</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
