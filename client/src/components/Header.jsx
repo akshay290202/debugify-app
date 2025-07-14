@@ -174,12 +174,14 @@ const Header = () => {
                   </div>
                 </Dropdown.Header>
 
-                <Link to="/dashboard?tab=dash">
-                  <Dropdown.Item className="flex items-center space-x-2 hover:bg-primary-50 dark:hover:bg-primary-900/20">
-                    <HiViewGrid className="w-4 h-4" />
-                    <span>Dashboard</span>
-                  </Dropdown.Item>
-                </Link>
+                {currentUser.isAdmin && (
+                  <Link to="/dashboard?tab=dash">
+                    <Dropdown.Item className="flex items-center space-x-2 hover:bg-primary-50 dark:hover:bg-primary-900/20">
+                      <HiViewGrid className="w-4 h-4" />
+                      <span>Dashboard</span>
+                    </Dropdown.Item>
+                  </Link>
+                )}
 
                 <Link to="/dashboard?tab=profile">
                   <Dropdown.Item className="flex items-center space-x-2 hover:bg-primary-50 dark:hover:bg-primary-900/20">

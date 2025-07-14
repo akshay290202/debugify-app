@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiArrowRight, HiCode, HiUsers, HiLightBulb, HiStar, HiSparkles, HiShieldCheck } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Home = () => {
   const [recentPosts, setRecentPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +51,15 @@ const Home = () => {
     </div>
   );
 
+  const checkIfUserIsLoggedIn = () => {
+    const user = useSelector(state => state.user.currentUser);
+    if(user)
+      return true;
+    else
+      return false;
+  }
+
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -89,9 +99,11 @@ const Home = () => {
                   <Link to="/questions" className="btn-primary group">
                     Explore Questions
                   </Link>
-                  <Link to="/sign-up" className="btn-outline">
-                    Join Community
-                  </Link>
+                  {!checkIfUserIsLoggedIn() && (
+                    <Link to="/sign-up" className="btn-outline">
+                      Join Community
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
