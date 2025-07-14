@@ -229,18 +229,19 @@ const Home = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button
+              {!checkIfUserIsLoggedIn() && (
+                <button
                 onClick={() => navigate('/sign-up')}
                 className="group relative px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  <HiSparkles className="w-6 h-6 mr-2 group-hover:animate-spin" />
-                  Join Free Today
-                  <HiArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
-                </span>
+                    <HiSparkles className="w-6 h-6 mr-2 group-hover:animate-spin" />
+                    Join Free Today
+                    <HiArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
-              
+              )}
               <button
                 onClick={() => navigate('/questions')}
                 className="px-10 py-5 bg-white/10 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-2xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
