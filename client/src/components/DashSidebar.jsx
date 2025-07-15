@@ -32,6 +32,7 @@ const DashSidebar = () => {
       setIsSigningOut(true);
       const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/signout/`, {
         method: "POST",
+        credentials: 'include',
       });
       
       let data = await res.text();

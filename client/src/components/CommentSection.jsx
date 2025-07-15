@@ -28,6 +28,7 @@ const CommentSection = ({ postId }) => {
           postId: postId,
           userId: currentUser.id,
         }),
+        credentials: 'include',
         redirect: "follow",
       });
       const data = await res.json();
@@ -45,7 +46,9 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getpostcomments/${postId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getpostcomments/${postId}`, {
+          credentials: 'include'
+        });
         if (res.ok) {
           const data = await res.json();
           setcomments(data);
@@ -66,6 +69,7 @@ const CommentSection = ({ postId }) => {
 
               const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/likecomment/${commentId}`,{
         method : 'PUT',
+        credentials: 'include',
       }); 
 
       if(res.ok){
@@ -101,6 +105,7 @@ const CommentSection = ({ postId }) => {
 
               const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentToDelete}`,{
         method : 'DELETE',
+        credentials: 'include',
       });
       if(res.ok){
         

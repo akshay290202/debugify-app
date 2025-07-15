@@ -25,6 +25,7 @@ const CreatePost = () => {
             "category" : formData.category,
             "content" : formData.content,
           }),
+          credentials: 'include',
           redirect : "follow",
 
       });

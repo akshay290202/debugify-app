@@ -17,7 +17,9 @@ const Questions = () => {
     try {
       setloading(true);
       const fetchRecentPosts = async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=10`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=10`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if(res.ok){
           setrecentPosts(data.posts);
@@ -44,7 +46,9 @@ const Questions = () => {
   const fetchUsers = async (userIds) => {
     const userPromises = userIds.map(async (userId) => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getuser/${userId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getuser/${userId}`, {
+          credentials: 'include'
+        });
         const userData = await res.json();
         if (res.ok) {
           return { [userId]: userData };
@@ -76,7 +80,9 @@ const Questions = () => {
     const startIndex = posts.length;
     setLoadingMore(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?startIndex=${startIndex}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?startIndex=${startIndex}`, {
+      credentials: 'include'
+    });
       const data = await res.json();
       if (res.ok) {
         const newPosts = [...posts, ...data.posts];

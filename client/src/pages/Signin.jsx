@@ -31,6 +31,7 @@ const SignIn = () => {
             "email" : formData.email,
             "password" : formData.password
           }),
+          credentials: 'include',
           redirect : "follow",
 
         });

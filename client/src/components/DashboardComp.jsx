@@ -21,7 +21,9 @@ const DashboardComp = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getusers?limit=5`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getusers?limit=5`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -35,7 +37,9 @@ const DashboardComp = () => {
 
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=5`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=5`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -49,7 +53,9 @@ const DashboardComp = () => {
 
     const fetchComments = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getcomments?limit=5`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getcomments?limit=5`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if (res.ok) {
           setComments(data.Comments);

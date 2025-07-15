@@ -19,7 +19,9 @@ const DashComments = () => {
     const fetchComments = async () => {
       try {
         setloading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getcomments`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getcomments`, {
+        credentials: 'include'
+      });
         const data = await res.json();
         if (res.ok) {
           setloading(false);
@@ -43,7 +45,9 @@ const DashComments = () => {
     setLoadingMore(true);
     try {
       const res = await fetch(
-        `/api/comment/getcomments?startIndex=${startIndex}`
+        `${import.meta.env.VITE_API_BASE}/api/comment/getcomments?startIndex=${startIndex}`,{
+          credentials: 'include'
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -60,9 +64,10 @@ const DashComments = () => {
 
   const handleDeleteComment = async () => {
     try {
-              const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentIdToDelete}`, {
-        method: "DELETE",
-      });
+                      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentIdToDelete}`, {
+          method: "DELETE",
+          credentials: 'include',
+        });
       
       if (res.ok) {
         // Update the comments state immediately

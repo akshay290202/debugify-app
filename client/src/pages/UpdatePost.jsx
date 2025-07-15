@@ -34,7 +34,9 @@ const UpdatePost = () => {
     try {
       const fetchPost = async () => {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?postId=${postId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?postId=${postId}`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if (!res.ok) {
           console.log(data.message);
@@ -68,6 +70,7 @@ const UpdatePost = () => {
           category: formData.category,
           content: formData.content,
         }),
+        credentials: 'include',
         redirect: "follow",
       });
       const data = await res.json();
