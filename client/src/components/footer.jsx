@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "/coding-html-svgrepo-com.svg";
+import logo from "/coding-icon-blue.svg";
 import { FaHome, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { IoBugSharp } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";

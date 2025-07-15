@@ -4,7 +4,7 @@ import { Avatar, Button, Dropdown, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { HiUser, HiCog, HiLogout, HiViewGrid, HiMenu, HiX } from "react-icons/hi";
-import logo from "/coding-html-svgrepo-com.svg";
+import logo from "/coding-icon-blue.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice.js";
 import { useTheme } from "./ThemeProvider";
