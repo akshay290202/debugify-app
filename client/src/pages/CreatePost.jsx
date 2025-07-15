@@ -17,7 +17,7 @@ const CreatePost = () => {
     e.preventDefault();
     setIsPublishing(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/create`,{
+      const res = await fetch('/api/post/create',{
         method: 'POST',
           headers: { 'Content-Type' : 'application/json'},
           body: JSON.stringify({

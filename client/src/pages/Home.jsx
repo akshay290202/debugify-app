@@ -11,7 +11,7 @@ const Home = () => {
     const fetchRecentPosts = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=8`);
+        const res = await fetch(`/api/post/getposts?limit=8`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);

@@ -34,7 +34,7 @@ const UpdatePost = () => {
     try {
       const fetchPost = async () => {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?postId=${postId}`);
+        const res = await fetch(`/api/post/getposts?postId=${postId}`);
         const data = await res.json();
         if (!res.ok) {
           console.log(data.message);
@@ -60,7 +60,7 @@ const UpdatePost = () => {
     e.preventDefault();
     setUpdating(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/updatepost/${formData.id}/${currentUser.id}`, {
+      const res = await fetch(`/api/post/updatepost/${formData.id}/${currentUser.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

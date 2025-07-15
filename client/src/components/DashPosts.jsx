@@ -17,7 +17,8 @@ const DashPosts = () => {
     const fetchPosts = async () => {
       try {
         setloading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?userId=${currentUser.id}`);
+        console.log("****", currentUser.id);
+        const res = await fetch(`/api/post/getposts?userId=${currentUser.id}`);
         const data = await res.json();
         if (res.ok) {
           setuserPosts(data.posts);
@@ -38,7 +39,7 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     setLoadingMore(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?userId=${currentUser.id}&startIndex=${startIndex}`);
+      const res = await fetch(`/api/post/getposts?userId=${currentUser.id}&startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setuserPosts((prev) => [...prev, ...data.posts]);
@@ -55,7 +56,7 @@ const DashPosts = () => {
   const handleDeletePost = async () => {
     setshowModal(false);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/deletepost/${PostIdToDelete}/${currentUser.id}`, {
+      const res = await fetch(`/api/post/deletepost/${PostIdToDelete}/${currentUser.id}`, {
         method: 'DELETE',
       });
       const data = await res.text();

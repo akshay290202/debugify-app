@@ -18,7 +18,7 @@ const DashUsers = () => {
     const fetchUsers = async () => {
       try {
         setloading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getusers`);
+        const res = await fetch(`/api/user/getusers`);
         const data = await res.json();
         if (res.ok) {
           setloading(false);
@@ -39,7 +39,7 @@ const DashUsers = () => {
     const startIndex = users.length;
     setLoadingMore(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getusers?startIndex=${startIndex}`);
+      const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setusers((prev) => [...prev, ...data.users]);
@@ -55,7 +55,7 @@ const DashUsers = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/delete/${userIdToDelete}`, {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
         method: 'DELETE',
       });
       const data = await res.text();
