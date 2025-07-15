@@ -49,6 +49,7 @@ const DashProfile = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          credentials: 'include',
           redirect: "follow",
         }
       );
@@ -74,6 +75,7 @@ const DashProfile = () => {
         `${import.meta.env.VITE_API_BASE}/api/user/delete/${currentUser.id}`,
         {
           method: "DELETE",
+          credentials: 'include',
           redirect: "follow",
         }
       );

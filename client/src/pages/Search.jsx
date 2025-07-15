@@ -34,7 +34,9 @@ const Search = () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
       // console.log(searchQuery);
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?${searchQuery}`, {
+        credentials: 'include'
+      });
       if (!res.ok) {
         setLoading(false);
         return;
@@ -88,7 +90,9 @@ const Search = () => {
     urlParams.set('startIndex',startIndex);
     const searchQuery = urlParams.toString();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?${searchQuery}`, {
+        credentials: 'include'
+      });
     if(!res.ok){
       return;
     }

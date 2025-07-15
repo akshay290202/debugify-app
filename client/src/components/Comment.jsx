@@ -13,7 +13,9 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getuser/${comment.userId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getuser/${comment.userId}`, {
+          credentials: 'include'
+        });
         const data = await res.json();
         if (res.ok) {
           setUser(data);
@@ -40,6 +42,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
         body: JSON.stringify({
           content : editedContent,
         }),
+        credentials: 'include',
         redirect : 'follow',
       })
 
