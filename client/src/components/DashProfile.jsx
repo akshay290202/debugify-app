@@ -42,7 +42,7 @@ const DashProfile = () => {
     try {
       dispatch(updateStart());
       const res = await fetch(
-        `/api/user/update/${currentUser.id}`,
+        `${import.meta.env.VITE_API_BASE}/api/user/update/${currentUser.id}`,
         {
           method: "PUT",
           headers: {
@@ -71,7 +71,7 @@ const DashProfile = () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `/api/user/delete/${currentUser.id}`,
+        `${import.meta.env.VITE_API_BASE}/api/user/delete/${currentUser.id}`,
         {
           method: "DELETE",
           redirect: "follow",
