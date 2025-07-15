@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiCode, HiUsers, HiLightBulb, HiStar, HiArrowRight, HiSparkles, HiHeart, HiTrendingUp, HiChat, HiShieldCheck, HiLightningBolt } from "react-icons/hi";
 import { FaRocket } from "react-icons/fa";
-import { useSelector } from "react-redux";
 
 const About = () => {
   const navigate = useNavigate();

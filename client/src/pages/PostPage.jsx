@@ -45,7 +45,7 @@ const PostPage = () => {
     const fetchPost = async () => {
       try {
         setloading(true);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
         if (!res.ok) {
           setError(true);
@@ -69,7 +69,7 @@ const PostPage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`/api/user/getuser/${post.userId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/getuser/${post.userId}`);
         const data = await res.json();
         if (res.ok) {
           setPostUser(data);
@@ -88,7 +88,7 @@ const PostPage = () => {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=6`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?limit=6`);
         const data = await res.json();
         if (res.ok) {
           // Filter out current post
