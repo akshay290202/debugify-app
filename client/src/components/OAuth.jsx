@@ -6,11 +6,13 @@ import { app } from '../firebase'
 import { useDispatch } from 'react-redux'
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from './Toast';
 
 const OAuth = () => {
     const auth = getAuth(app);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { showSuccess } = useToast();
     const handleGoogleClick = async () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt : 'select_account'});
@@ -30,6 +32,7 @@ const OAuth = () => {
             const data = await res.json();
             if(res.ok){
                 dispatch(signInSuccess(data));
+                showSuccess("Welcome! You have been signed in successfully with Google.", "Google Sign In");
                 navigate('/');
             }
         } catch (error) {

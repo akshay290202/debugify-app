@@ -5,10 +5,12 @@ import  Comment  from './Comment';
 import { useNavigate } from "react-router-dom"; 
 import { HiOutlineExclamationCircle} from 'react-icons/hi';
 import { Alert, Button, Modal, TextInput, Textarea } from "flowbite-react";
+import { useToast } from './Toast';
 
 const CommentSection = ({ postId }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const { showSuccess } = useToast();
   const [comment, setcomment] = useState("");
   const [comments, setcomments] = useState([]);
   const[showModal, setshowModal] = useState(false);
@@ -35,14 +37,15 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setcomment("");
         setcommenterror(null);
-        setcomments([data, ...comments]);
+        setcomments((prevComments) => [data, ...prevComments]);
+        showSuccess("Comment posted successfully!", "Success");
       }
     } catch (error) {
       setcommenterror(error.messsage);
     }
   };
 
-  // console.log(postId);
+
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -74,8 +77,7 @@ const CommentSection = ({ postId }) => {
 
       if(res.ok){
         const data = await res.json();
-        // console.log(likes);
-        setcomments(comments.map((comment) => 
+        setcomments((prevComments) => prevComments.map((comment) => 
           comment.id === commentId ? {
             ...comment,
             likes : data.likes,
@@ -89,13 +91,18 @@ const CommentSection = ({ postId }) => {
   };
 
   const handleEdit = async (comment,editedContent) => {
-    setcomments(
-      comments.map((c) =>
+    setcomments((prevComments) =>
+      prevComments.map((c) =>
       c.id === comment.id ? {...c , content : editedContent} : c
     ))
   };
 
   const handleDelete = async () => {
+    if (!commentToDelete) {
+      console.error('No comment selected for deletion');
+      return;
+    }
+
     setshowModal(false);
     try {
       if(!currentUser){
@@ -103,19 +110,27 @@ const CommentSection = ({ postId }) => {
         return;
       }
 
-              const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentToDelete}`,{
+      const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentToDelete}`,{
         method : 'DELETE',
         credentials: 'include',
       });
+      
       if(res.ok){
-        
-        const data = await res.json();
-        setcomments(
-          comments.filter((comment) => comment.id !== commentToDelete)
-        )
+        setcomments((prevComments) => {
+          const filteredComments = prevComments.filter((comment) => {
+            const commentId = String(comment.id);
+            const deleteId = String(commentToDelete);
+            return commentId !== deleteId;
+          });
+          return filteredComments;
+        });
+        showSuccess("Comment deleted successfully!", "Success");
+        setcommentToDelete(null); // Reset after successful deletion
+      } else {
+        console.error('Delete failed with status:', res.status);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log('Delete error:', error.message);
     }
   };
 
@@ -317,7 +332,10 @@ const CommentSection = ({ postId }) => {
         )}
         <Modal
           show={showModal}
-          onClose={() => setshowModal(false)}
+          onClose={() => {
+            setshowModal(false);
+            setcommentToDelete(null);
+          }}
           popup
           size="md"
           className="backdrop-blur-sm"
@@ -359,7 +377,10 @@ const CommentSection = ({ postId }) => {
                   </button>
                   
                   <button
-                    onClick={() => setshowModal(false)}
+                    onClick={() => {
+                      setshowModal(false);
+                      setcommentToDelete(null);
+                    }}
                     className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50 rounded-lg shadow-lg hover:bg-white/80 dark:hover:bg-gray-700/80 focus:ring-4 focus:ring-gray-300/50 transform hover:scale-[1.02] transition-all duration-300"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -16,11 +16,13 @@ import {
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useToast } from './Toast';
 
 const DashProfile = () => {
   const dispatch = useDispatch();
   const  {currentUser, error ,loading} = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const { showSuccess } = useToast();
   const [updateUserSuccess, setupdateUserSuccess] = useState(null);
   const [updateUserError, setupdateUserError] = useState(null);
   const [formData, setformData] = useState({});
@@ -87,8 +89,8 @@ const DashProfile = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        showSuccess("Account deleted successfully! We're sorry to see you go.", "Farewell");
         navigate('/');
-        console.log("User deleted successfully");
       }
     } catch (error) {
       dispatch(deleteUserFailure(error.message));

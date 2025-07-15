@@ -8,6 +8,7 @@ import logo from "/coding-icon-blue.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice.js";
 import { useTheme } from "./ThemeProvider";
+import { useToast } from "./Toast";
 
 const Header = () => {
   const path = useLocation().pathname;
@@ -16,6 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { darkMode, toggleDarkMode } = useTheme();
+  const { showSuccess } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,11 +40,11 @@ const Header = () => {
       let data = await res.text();
       
       if (res.ok) { 
-        console.log("Sign out successful:", data);
         dispatch(signOutSuccess());
         localStorage.removeItem('user');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        showSuccess("Successfully signed out!", "See you soon!");
         navigate('/');
       } else {
         console.log("Sign out failed:", data);

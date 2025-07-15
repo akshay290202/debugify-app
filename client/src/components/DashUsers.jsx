@@ -4,9 +4,11 @@ import { Button, Modal, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle, HiUser, HiMail, HiCalendar, HiShieldCheck, HiTrash, HiUsers, HiUserGroup, HiStar } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { useToast } from './Toast';
 
 const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { showSuccess } = useToast();
   const [users, setusers] = useState([]);
   const [loading, setloading] = useState(true);
   const [showMore, setshowMore] = useState(true);
@@ -67,6 +69,7 @@ const DashUsers = () => {
       if (res.ok) {
         setusers((prev) => prev.filter((user) => user.id !== userIdToDelete));
         setshowModal(false);
+        showSuccess("User deleted successfully!", "User Management");
       }
       else {
         console.log(data.message);

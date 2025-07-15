@@ -33,7 +33,6 @@ const Search = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      // console.log(searchQuery);
       const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/post/getposts?${searchQuery}`, {
         credentials: 'include'
       });
@@ -55,7 +54,6 @@ const Search = () => {
     fetchPosts();
   }, [location.search]);
 
-  // console.log(posts);
 
   const handleChange = (e) => {
     if (e.target.id === 'searchTerm') {
@@ -71,7 +69,6 @@ const Search = () => {
     }
   };
 
-  // console.log(sidebarData);
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
@@ -79,7 +76,6 @@ const Search = () => {
     urlParams.set('sort', sidebarData.sort);
     urlParams.set('category', sidebarData.category);
     const searchQuery = urlParams.toString();
-    console.log("searchQuery",searchQuery);
     navigate(`/search?${searchQuery}`);
   };
 
@@ -98,7 +94,6 @@ const Search = () => {
     }
     else{
       const data = await res.json();
-      // console.log(data.posts);
       setPosts([...posts,...data.posts]);
       if(data.posts.length === 12){
         setShowMore(true);
