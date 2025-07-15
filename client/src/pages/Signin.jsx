@@ -41,7 +41,8 @@ const SignIn = () => {
         }
 
         if(res.ok){
-          dispatch(signInSuccess(data));
+          dispatch(signInSuccess(data.user));
+          localStorage.setItem('access_token', data.token);
           navigate('/');
         }
       } catch (error) {
