@@ -5,6 +5,7 @@ import logo from '/coding-icon-blue.svg';
 import { useDispatch , useSelector } from "react-redux";
 import {signInFailure , signInStart , signInSuccess } from '../redux/user/userSlice.js';
 import OAuth from "../components/OAuth.jsx";
+import { useToast } from '../components/Toast';
 
 const SignIn = () => {
 
@@ -12,6 +13,7 @@ const SignIn = () => {
     const {loading , error : errormessage} = useSelector(state => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { showSuccess } = useToast();
     const handleChange = (e) =>{
       setformData({...formData , [e.target.id] : e.target.value.trim() })
     };
@@ -43,6 +45,7 @@ const SignIn = () => {
         if(res.ok){
           dispatch(signInSuccess(data.user));
           localStorage.setItem('access_token', data.token);
+          showSuccess("Welcome back! You have been signed in successfully.", "Sign In Successful");
           navigate('/');
         }
       } catch (error) {

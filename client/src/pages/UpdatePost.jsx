@@ -5,9 +5,11 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { HiPencil, HiSave, HiExclamationCircle, HiDocument, HiTag, HiArrowLeft } from 'react-icons/hi';
+import { useToast } from '../components/Toast';
 
 const UpdatePost = () => {
   const navigate = useNavigate();
+  const { showSuccess } = useToast();
   const [formData, setformData] = useState({});
   const [publishError, setpublishError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -82,6 +84,7 @@ const UpdatePost = () => {
       if (res.ok) {
         setpublishError(null);
         setUpdating(false);
+        showSuccess("Post updated successfully! Redirecting to your post...", "Success");
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {

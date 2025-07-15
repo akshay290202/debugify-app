@@ -5,10 +5,12 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { HiSparkles, HiPencil, HiCode, HiCollection, HiDocumentText, HiLightningBolt, HiCheckCircle } from "react-icons/hi";
+import { useToast } from '../components/Toast';
 
 const CreatePost = () => {
   const { currentUser } = useLocation();
   const navigate = useNavigate();
+  const { showSuccess } = useToast();
   const [formData, setformData] = useState({});
   const [publishError, setpublishError] = useState(null);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -38,6 +40,7 @@ const CreatePost = () => {
       if(res.ok){
         setpublishError(null);
         setIsPublishing(false);
+        showSuccess("Post created successfully! Redirecting to your post...", "Success");
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {

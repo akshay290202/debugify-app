@@ -3,6 +3,7 @@ import { Link,useNavigate } from "react-router-dom";
 import {Alert, Button, Label, Spinner, TextInput} from 'flowbite-react';
 import logo from '/coding-icon-blue.svg';
 import OAuth from "../components/OAuth";
+import { useToast } from '../components/Toast';
 
 const Signup = () => {
 
@@ -10,6 +11,7 @@ const Signup = () => {
     const [errormessage,seterrormessage] = useState(null);
     const [loading,setloading] = useState(false);
     const navigate = useNavigate();
+    const { showSuccess } = useToast();
     const handleChange = (e) =>{
       setformData({...formData , [e.target.id] : e.target.value.trim() })
     };
@@ -41,6 +43,7 @@ const Signup = () => {
         }
         setloading(false);
         if(res.ok){
+          showSuccess("Account created successfully! Please sign in to continue.", "Welcome to Debugify");
           navigate('/sign-in');
         }
       } catch (error) {

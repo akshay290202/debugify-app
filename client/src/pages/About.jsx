@@ -68,7 +68,7 @@ const About = () => {
       name: "Sarah Chen",
       role: "Senior Developer",
       company: "TechCorp",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&h=150&fit=crop&crop=face",
       quote: "Debugify transformed how I approach problem-solving. The community is incredible!"
     },
     {

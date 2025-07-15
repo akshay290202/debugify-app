@@ -3,13 +3,15 @@ import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Textarea } from "flowbite-react";
+import { useToast } from './Toast';
 
 function Comment({ comment, onLike ,onEdit ,onDelete }) {
   const { currentUser } = useSelector((state) => state.user);
+  const { showSuccess } = useToast();
   const [user, setUser] = useState({});
   const [editedContent, seteditedContent] = useState(comment.content);
   const [isEditing, setisEditing] = useState(false);
-  // console.log(comment);
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -49,6 +51,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
       if(res.ok){
         setisEditing(false);
         onEdit(comment,editedContent);
+        showSuccess("Comment updated successfully!", "Success");
       }
     } catch (error) {
       console.log(error.message);

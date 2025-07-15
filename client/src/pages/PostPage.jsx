@@ -224,12 +224,13 @@ const PostPage = () => {
                     <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400 mt-1">
                       <div className="flex items-center">
                         <HiCalendar className="w-3 h-3 mr-1" />
-                        {post && moment(post.createdAt).fromNow()}
+                        {post && moment.utc(post.createdAt.split('.')[0]).local().fromNow()
+                        }
                       </div>
                       {post && post.updatedAt !== post.createdAt && (
                         <div className="flex items-center">
                           <HiClock className="w-3 h-3 mr-1" />
-                          Updated {moment(post.updatedAt).fromNow()}
+                          Updated {moment.utc(post.updatedAt.split('.')[0]).local().fromNow()}
                         </div>
                       )}
                     </div>

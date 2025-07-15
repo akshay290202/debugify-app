@@ -4,9 +4,11 @@ import { Button, Modal, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle, HiChat, HiHeart, HiCalendar, HiTrash, HiDocument, HiUser, HiAnnotation, HiChatAlt2, HiThumbUp } from "react-icons/hi";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { useToast } from './Toast';
 
 const DashComments = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { showSuccess } = useToast();
   const [comments, setcomments] = useState([]);
   const [loading, setloading] = useState(true);
   const [showMore, setshowMore] = useState(true);
@@ -73,13 +75,13 @@ const DashComments = () => {
         // Update the comments state immediately
         setcomments((prev) => {
           const filtered = prev.filter((comment) => comment.id !== commentIdToDelete);
-          console.log(`Deleted comment ${commentIdToDelete}. Comments before: ${prev.length}, after: ${filtered.length}`);
           return filtered;
         });
         
         // Clear the states and close modal
         setshowModal(false);
         setcommentIdToDelete("");
+        showSuccess("Comment deleted successfully!", "Comment Management");
       } else {
         const data = await res.json();
         console.log("Delete failed:", data.message);

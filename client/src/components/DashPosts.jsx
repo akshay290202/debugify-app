@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import { Button, Modal, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle, HiPencil, HiTrash, HiCalendar, HiTag, HiDocumentText, HiPlus, HiEye } from 'react-icons/hi';
+import { useToast } from './Toast';
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { showSuccess } = useToast();
   const [userPosts, setuserPosts] = useState([]);
   const [loading, setloading] = useState(true);
   const [showMore, setshowMore] = useState(true);
@@ -71,6 +73,7 @@ const DashPosts = () => {
         setuserPosts((prev) =>
           prev.filter((post) => post.id !== PostIdToDelete)
         )
+        showSuccess("Post deleted successfully!", "Post Management");
       }
 
     } catch (error) {
@@ -173,12 +176,19 @@ const DashPosts = () => {
                 <div className="text-gray-600 dark:text-gray-400">Total Posts</div>
               </div>
               
+               {/* total posts in last 30 days implement this */}
               <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300">
-                <HiEye className="w-8 h-8 text-secondary-600 mx-auto mb-3" />
+                <HiCalendar className="w-8 h-8 text-secondary-600 mx-auto mb-3" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {userPosts.reduce((total, post) => total + (post.views || 0), 0)}
+                  {userPosts.reduce((total, post) => {
+                    const postDate = new Date(post.createdAt);
+                    const today = new Date();
+                    const diffTime = Math.abs(today - postDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    return total + (diffDays <= 30 ? 1 : 0);
+                  }, 0)}
                 </div>
-                <div className="text-gray-600 dark:text-gray-400">Total Views</div>
+                <div className="text-gray-600 dark:text-gray-400">Latest Posts</div>
               </div>
               
               <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300">
@@ -229,10 +239,6 @@ const DashPosts = () => {
                         </Link>
                         
                         <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-                          <div className="flex items-center">
-                            <HiEye className="w-4 h-4 mr-1" />
-                            {post.views || 0} views
-                          </div>
                           <div className="flex items-center">
                             <HiDocumentText className="w-4 h-4 mr-1" />
                             Published
