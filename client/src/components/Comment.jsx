@@ -53,7 +53,7 @@ function Comment({ comment, onLike ,onEdit ,onDelete }) {
   };
 
   const checkIfUserHasLiked = (likes = [],userId) => {
-    return likes.some(like => like.user.id === userId);
+    return likes?.some(like => like.user.id === userId);
   }
 
   return (

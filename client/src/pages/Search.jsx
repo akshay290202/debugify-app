@@ -248,10 +248,17 @@ const Search = () => {
                     id='category'
                     className="w-full"
                   >
-                    <option value='uncategorized'>All Categories</option>
-                    <option value='reactjs'>React.js</option>
-                    <option value='nextjs'>Next.js</option>
-                    <option value='javascript'>JavaScript</option>
+                    <option value='Uncategorized'>All Categories</option>
+                    <option value='React.js'>React.js</option>
+                    <option value='Next.js'>Next.js</option>
+                    <option value='Javascript'>JavaScript</option>
+                    <option value='Node.js'>Node.js</option>
+                    <option value='Python'>Python</option>
+                    <option value='Java'>Java</option>
+                    <option value='C++'>C++</option>
+                    <option value='C#'>C#</option>
+                    <option value='PHP'>PHP</option>
+                    <option value='SQL'>SQL</option>
                   </Select>
                 </div>
 

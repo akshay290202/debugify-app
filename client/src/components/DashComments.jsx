@@ -47,8 +47,8 @@ const DashComments = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        setcomments((prev) => [...prev, ...data.comments]);
-        if (data.comments.length < 9) {
+        setcomments((prev) => [...prev, ...data.Comments]);
+        if (data.Comments.length < 9) {
           setshowMore(false);
         }
       }
@@ -59,22 +59,28 @@ const DashComments = () => {
   };
 
   const handleDeleteComment = async () => {
-    setshowModal(false);
     try {
       const res = await fetch(`/api/comment/deletecomment/${commentIdToDelete}`, {
         method: "DELETE",
       });
-      const data = await res.json();
+      
       if (res.ok) {
-        setcomments((prev) =>
-          prev.filter((comment) => comment.id !== commentIdToDelete)
-        );
+        // Update the comments state immediately
+        setcomments((prev) => {
+          const filtered = prev.filter((comment) => comment.id !== commentIdToDelete);
+          console.log(`Deleted comment ${commentIdToDelete}. Comments before: ${prev.length}, after: ${filtered.length}`);
+          return filtered;
+        });
+        
+        // Clear the states and close modal
         setshowModal(false);
+        setcommentIdToDelete("");
       } else {
-        console.log(data.message);
+        const data = await res.json();
+        console.log("Delete failed:", data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log("Error deleting comment:", error.message);
     }
   };
 
@@ -263,13 +269,6 @@ const DashComments = () => {
                       {/* Actions */}
                       <div className="flex flex-col items-end space-y-3">
                         <div className="flex items-center space-x-3">
-                          <Link
-                            to={`/post/${comment.postId}`}
-                            className="inline-flex items-center px-4 py-2 bg-primary-100 hover:bg-primary-200 dark:bg-primary-900/30 dark:hover:bg-primary-800/50 text-primary-600 dark:text-primary-400 rounded-lg transition-all duration-300 hover:scale-105 text-sm font-medium"
-                          >
-                            <HiDocument className="w-4 h-4 mr-2" />
-                            View Post
-                          </Link>
                           
                           <button
                             onClick={() => {
@@ -341,7 +340,10 @@ const DashComments = () => {
           {/* Delete Confirmation Modal */}
           <Modal
             show={showModal}
-            onClose={() => setshowModal(false)}
+            onClose={() => {
+              setshowModal(false);
+              setcommentIdToDelete("");
+            }}
             popup
             size="md"
             className="backdrop-blur-sm"
@@ -368,7 +370,10 @@ const DashComments = () => {
                   </Button>
                   <Button
                     color="gray"
-                    onClick={() => setshowModal(false)}
+                    onClick={() => {
+                      setshowModal(false);
+                      setcommentIdToDelete("");
+                    }}
                     className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
                   >
                     Cancel

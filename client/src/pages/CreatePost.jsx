@@ -46,10 +46,17 @@ const CreatePost = () => {
   }
 
   const categories = [
-    { value: "uncategorized", label: "Select a Category", disabled: true },
-    { value: "javascript", label: "JavaScript", icon: "🟨" },
-    { value: "react.js", label: "React.js", icon: "⚛️" },
-    { value: "next.js", label: "Next.js", icon: "▲" },
+    { value: "Uncategorized", label: "Select a Category", disabled: true },
+    { value: "Javascript", label: "JavaScript" },
+    { value: "React.js", label: "React.js" },
+    { value: "Next.js", label: "Next.js" },
+    { value: "Node.js", label: "Node.js" },
+    { value: "Python", label: "Python" },
+    { value: "Java", label: "Java" },
+    { value: "C++", label: "C++" },
+    { value: "C#", label: "C#" },
+    { value: "PHP", label: "PHP" },
+    { value: "SQL", label: "SQL" },
   ];
 
   return (
