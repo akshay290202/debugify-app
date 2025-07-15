@@ -113,8 +113,8 @@ const Home = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 blur-3xl"></div>
                 <img 
-                  src="./How-to-Get-Better-At-App-Debugging.webp" 
-                  alt="Debugging illustration"
+                  src="./modern-debugging-hero.svg" 
+                  alt="Modern debugging and coding illustration"
                   className="relative w-full max-w-lg mx-auto rounded-3xl shadow-strong hover:shadow-strong hover:scale-105 transition-all duration-500"
                 />
               </div>
