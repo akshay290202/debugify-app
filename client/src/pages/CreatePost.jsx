@@ -60,6 +60,10 @@ const CreatePost = () => {
     { value: "SQL", label: "SQL" },
   ];
 
+  const handleCategoryChange = (e) => {
+    setformData({...formData, category : e.target.value});
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-primary-900/10 dark:to-secondary-900/10">
       
@@ -166,7 +170,7 @@ const CreatePost = () => {
                     Category
                   </label>
                   <Select 
-                    onChange={(e) => setformData({...formData, category : e.target.value})}
+                    onChange={handleCategoryChange}
                     className="w-full"
                     style={{
                       borderRadius: '12px',
@@ -174,8 +178,8 @@ const CreatePost = () => {
                     }}
                   >
                     {categories.map((cat, index) => (
-                      <option key={index} value={cat.value} disabled={cat.disabled}>
-                        {cat.icon && `${cat.icon} `}{cat.label}
+                      <option key={index} value={cat.value}>
+                        {cat.label}
                       </option>
                     ))}
                   </Select>
