@@ -19,7 +19,7 @@ const DashComments = () => {
     const fetchComments = async () => {
       try {
         setloading(true);
-        const res = await fetch(`/api/comment/getcomments`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
           setloading(false);
@@ -60,7 +60,7 @@ const DashComments = () => {
 
   const handleDeleteComment = async () => {
     try {
-      const res = await fetch(`/api/comment/deletecomment/${commentIdToDelete}`, {
+              const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/comment/deletecomment/${commentIdToDelete}`, {
         method: "DELETE",
       });
       
