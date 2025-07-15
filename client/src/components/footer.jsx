@@ -24,7 +24,7 @@ const Footer = () => {
                 className="h-8 w-8 transition-transform duration-200 group-hover:scale-110" 
                 alt="Debugify Logo" 
               />
-              <span className="text-2xl font-bold text-gradient">
+              <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text text-transparent">
                 Debugify
               </span>
             </Link>

@@ -80,7 +80,7 @@ const Header = () => {
               />
               <div className="absolute inset-0 bg-primary-500/20 rounded-full blur group-hover:bg-primary-500/40 transition-all duration-200"></div>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text text-transparent">
               Debugify
             </span>
           </Link>
